@@ -25,9 +25,26 @@ disp(length(y))
 
 y(:,1) = [2;0];
 
+%Explicit euler method
 for i = 1:(n-1)
     y(:,i+1) = y(:,i) + h*f(y(:,i),t(i));
 end
 
+% Energy for the system
+A = 0.01;
+m = 200;
+p0 =2e5;
+
+% Energy formula
+
+E = (p0*A/(K-1)) * y(1,:).^(-(K-1)) + m*g.*y(1,:) + 1/2 * m*y(2,:).*y(2,:);
+
+
+
+figure
+subplot(211)
 plot(t,y)
 legend y ydot
+subplot(212)
+plot(t,E)
+legend Energy
