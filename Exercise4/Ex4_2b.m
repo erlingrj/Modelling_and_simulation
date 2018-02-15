@@ -20,6 +20,11 @@ f = @(y,t) [y(2); -g*(1-(1/y(1))^K)];
 % Settings for fsolve
 opt = optimset('Display','off','TolFun',1e-8);
 
+% Allocate vector for solution
+
+y = zeros(2,n);
+y(:,1) = y0;
+
 for i = 1:n
     r = @(y_next) (y(:,i) + h*feval(f, y_next, t(i+1)) - y_next);
     y(:,i+1) = fsolve(r,y(:,i),opt);
